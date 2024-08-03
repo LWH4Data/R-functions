@@ -1,0 +1,6 @@
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+출처: https://3months.tistory.com/97 [Deep Play:티스토리]
