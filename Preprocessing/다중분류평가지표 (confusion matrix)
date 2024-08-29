@@ -1,0 +1,18 @@
+# 생성한 모델의 분류 결과를 confusion matrix로 혼동행렬을 만든다.
+conf_matrix <- confusionMatrix(예측모델, df_test$결과변수)
+conf_matrix
+
+# Accuracy, 평균 precision, 평균 recall, 평균 F1 Score를 반환한다.
+eval_func <- function(conf_matrix) {
+  class_metrics <- conf_matrix$byClass
+  
+  accuracy <- conf_matrix$overall['Accuracy']
+  precision <- mean(ifelse(is.na(class_metrics[,'Pos Pred Value']), 0, class_metrics[,'Pos Pred Value']))
+  recall <- mean(ifelse(is.na(class_metrics[,'Sensitivity']), 0, class_metrics[,'Sensitivity']))
+  f1_score <- mean(ifelse(is.na(class_metrics[,'F1']), 0, class_metrics[,'F1']))
+  
+  print(paste("Accuracy:", round(accuracy, 4)))
+  print(paste("Average Precision:", round(precision, 4)))
+  print(paste("Average Recall:", round(recall, 4)))
+  print(paste("Average F1 Score:", round(f1_score, 4)))
+}
