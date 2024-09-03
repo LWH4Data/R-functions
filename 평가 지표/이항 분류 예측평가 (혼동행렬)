@@ -1,0 +1,28 @@
+calculate_metrics <- function(predictions, actuals) {
+  # 혼동 행렬 생성
+  cm <- confusionMatrix(predictions, actuals)
+  
+  # 혼동 행렬에서 TP, FP, TN, FN 값 추출
+  TP <- cm$table["Yes", "Yes"]
+  FP <- cm$table["No", "Yes"]
+  TN <- cm$table["No", "No"]
+  FN <- cm$table["Yes", "No"]
+  
+  # Accuracy 계산
+  accuracy <- (TP + TN) / (TP + TN + FP + FN)
+  
+  # Precision 계산
+  precision <- TP / (TP + FP)
+  
+  # Recall (Sensitivity) 계산
+  recall <- TP / (TP + FN)
+  
+  # F1 Score 계산
+  f1_score <- 2 * (precision * recall) / (precision + recall)
+  
+  # 결과 출력
+  cat("Accuracy: ", accuracy, "\n")
+  cat("Precision: ", precision, "\n")
+  cat("Recall (Sensitivity): ", recall, "\n")
+  cat("F1 Score: ", f1_score, "\n")
+}
