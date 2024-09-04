@@ -1,0 +1,14 @@
+# 예측 수행
+predictions <- predict(rf_model, newdata = dev_df)
+
+# 실제값과 예측값 비교
+actuals <- dev_df$price
+predictions_numeric <- as.numeric(predictions)
+
+# 평가 지표 계산
+rmse <- sqrt(mean((predictions_numeric - actuals)^2))
+mae <- mean(abs(predictions_numeric - actuals))
+
+# 평가 지표 출력
+print(paste("RMSE:", round(rmse, 4)))
+print(paste("MAE:", round(mae, 4)))
